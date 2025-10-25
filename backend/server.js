@@ -36,7 +36,32 @@ const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(cors());
+
+// Configure CORS to allow the frontend origin(s)
+const allowedOrigins = [
+    process.env.FRONTEND_URL || 'https://6s-4ey3fag2v-gokulsenthilkumar-gits-projects.vercel.app',
+    'http://localhost:5173',
+    'http://localhost:3000'
+];
+
+const corsOptions = {
+    origin: function (origin, callback) {
+        // Allow requests with no origin (like mobile apps or curl)
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            callback(new Error('CORS policy: This origin is not allowed - ' + origin));
+        }
+    },
+    credentials: true, // allow cookies and Authorization headers
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
+// Enable pre-flight across the board
+app.options('*', cors(corsOptions));
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
 }
