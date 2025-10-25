@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const axiosClient = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
+  // Use the Vite env var when provided, otherwise fall back to your deployed backend URL
+  baseURL: import.meta.env.VITE_API_URL || 'https://sixs.onrender.com/api',
   headers: {
     'Content-Type': 'application/json',
   },
