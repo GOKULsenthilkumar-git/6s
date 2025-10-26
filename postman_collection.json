@@ -1,0 +1,235 @@
+{
+  "info": {
+    "name": "6s ATS API",
+    "_postman_id": "6s-ats-collection",
+    "description": "Postman collection for the 6s Application Tracking System API. Set {{baseUrl}} (e.g. https://sixs.onrender.com/api) and {{token}} (JWT) in the environment before running requests.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://sixs.onrender.com/api",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@example.com\",\n  \"password\": \"password123\",\n  \"role\": \"admin\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/register", "host": [ "{{baseUrl}}" ], "path": [ "auth", "register" ] }
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" } ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": [ "{{baseUrl}}" ], "path": [ "auth", "login" ] }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": { "raw": "{{baseUrl}}/auth/profile", "host": [ "{{baseUrl}}" ], "path": [ "auth", "profile" ] }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Users (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ],
+            "url": { "raw": "{{baseUrl}}/auth/users", "host": [ "{{baseUrl}}" ], "path": [ "auth", "users" ] }
+          },
+          "response": []
+        },
+        {
+          "name": "Update User Role (Admin)",
+          "request": {
+            "method": "PUT",
+            "header": [ { "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{token}}" } ],
+            "body": { "mode": "raw", "raw": "{ \"role\": \"admin\" }" },
+            "url": { "raw": "{{baseUrl}}/auth/users/:id", "host": [ "{{baseUrl}}" ], "path": [ "auth", "users", ":id" ] }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete User (Admin)",
+          "request": {
+            "method": "DELETE",
+            "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ],
+            "url": { "raw": "{{baseUrl}}/auth/users/:id", "host": [ "{{baseUrl}}" ], "path": [ "auth", "users", ":id" ] }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Jobs",
+      "item": [
+        {
+          "name": "Get Active Jobs",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ],
+            "url": { "raw": "{{baseUrl}}/jobs/active", "host": [ "{{baseUrl}}" ], "path": [ "jobs", "active" ] }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Job By ID",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ],
+            "url": { "raw": "{{baseUrl}}/jobs/:id", "host": [ "{{baseUrl}}" ], "path": [ "jobs", ":id" ] }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Jobs (Admin)",
+          "request": { "method": "GET", "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ], "url": { "raw": "{{baseUrl}}/jobs", "host": [ "{{baseUrl}}" ], "path": [ "jobs" ] } },
+          "response": []
+        },
+        {
+          "name": "Create Job (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{token}}" } ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Frontend Engineer\",\n  \"description\": \"Build UI\",\n  \"requirements\": \"React, JS\",\n  \"location\": \"Remote\",\n  \"salary\": { \"min\": 50000, \"max\": 90000, \"currency\": \"USD\" },\n  \"roleType\": \"Technical\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/jobs", "host": [ "{{baseUrl}}" ], "path": [ "jobs" ] }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Job (Admin)",
+          "request": {
+            "method": "PUT",
+            "header": [ { "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{token}}" } ],
+            "body": { "mode": "raw", "raw": "{ \"title\": \"Updated Title\" }" },
+            "url": { "raw": "{{baseUrl}}/jobs/:id", "host": [ "{{baseUrl}}" ], "path": [ "jobs", ":id" ] }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Job (Admin)",
+          "request": { "method": "DELETE", "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ], "url": { "raw": "{{baseUrl}}/jobs/:id", "host": [ "{{baseUrl}}" ], "path": [ "jobs", ":id" ] } },
+          "response": []
+        },
+        {
+          "name": "Job Stats (Admin)",
+          "request": { "method": "GET", "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ], "url": { "raw": "{{baseUrl}}/jobs/stats/overview", "host": [ "{{baseUrl}}" ], "path": [ "jobs", "stats", "overview" ] } },
+          "response": []
+        },
+        {
+          "name": "Get Job Applications (Admin)",
+          "request": { "method": "GET", "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ], "url": { "raw": "{{baseUrl}}/jobs/:id/applications", "host": [ "{{baseUrl}}" ], "path": [ "jobs", ":id", "applications" ] } },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Applications",
+      "item": [
+        {
+          "name": "Create Application",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{token}}" } ],
+            "body": { "mode": "raw", "raw": "{ \"jobId\": \"<JOB_ID>\", \"roleType\": \"Technical\" }" },
+            "url": { "raw": "{{baseUrl}}/applications", "host": [ "{{baseUrl}}" ], "path": [ "applications" ] }
+          },
+          "response": []
+        },
+        {
+          "name": "Get My Applications",
+          "request": { "method": "GET", "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ], "url": { "raw": "{{baseUrl}}/applications/my", "host": [ "{{baseUrl}}" ], "path": [ "applications", "my" ] } },
+          "response": []
+        },
+        {
+          "name": "Get All Applications (Admin)",
+          "request": { "method": "GET", "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ], "url": { "raw": "{{baseUrl}}/applications", "host": [ "{{baseUrl}}" ], "path": [ "applications" ] } },
+          "response": []
+        },
+        {
+          "name": "Get Applications Stats (Admin)",
+          "request": { "method": "GET", "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ], "url": { "raw": "{{baseUrl}}/applications/stats", "host": [ "{{baseUrl}}" ], "path": [ "applications", "stats" ] } },
+          "response": []
+        },
+        {
+          "name": "Get Bot Activities (Admin)",
+          "request": { "method": "GET", "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ], "url": { "raw": "{{baseUrl}}/applications/bot-activities", "host": [ "{{baseUrl}}" ], "path": [ "applications", "bot-activities" ] } },
+          "response": []
+        },
+        {
+          "name": "Trigger AI Processing (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{token}}" } ],
+            "body": { "mode": "raw", "raw": "{ \"applicationIds\": [ \"<APP_ID_1>\", \"<APP_ID_2>\" ] }" },
+            "url": { "raw": "{{baseUrl}}/applications/trigger-ai-process", "host": [ "{{baseUrl}}" ], "path": [ "applications", "trigger-ai-process" ] }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Sample Activities (Admin)",
+          "request": { "method": "POST", "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ], "url": { "raw": "{{baseUrl}}/applications/create-sample-activities", "host": [ "{{baseUrl}}" ], "path": [ "applications", "create-sample-activities" ] } },
+          "response": []
+        },
+        {
+          "name": "Update Application (Admin)",
+          "request": {
+            "method": "PUT",
+            "header": [ { "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{token}}" } ],
+            "body": { "mode": "raw", "raw": "{ \"status\": \"Interview\", \"comment\": \"Scheduling interview\" }" },
+            "url": { "raw": "{{baseUrl}}/applications/:id", "host": [ "{{baseUrl}}" ], "path": [ "applications", ":id" ] }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Bot",
+      "item": [
+        {
+          "name": "Bot Process (Bot role)",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Authorization", "value": "Bearer {{token}}" } ],
+            "url": { "raw": "{{baseUrl}}/bot/process", "host": [ "{{baseUrl}}" ], "path": [ "bot", "process" ] }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

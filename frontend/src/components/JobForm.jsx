@@ -227,8 +227,8 @@ export default function JobForm({ onJobCreated, onCancel, editingJob = null }) {
                   onChange={handleInputChange}
                   className="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                 >
-                  <option value="CTC">CTC</option>
-                  <option value="LPA">LPA</option>
+                  <option value="USD">USD</option>
+                  <option value="GBP">GBP</option>
                   
                 </select>
               </div>
